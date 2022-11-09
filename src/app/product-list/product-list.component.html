@@ -1,0 +1,45 @@
+<div class="search-panel">
+  <input
+    type="text"
+    name="search"
+    [(ngModel)]="searchValue"
+    (drop)="inputDragEvent($event)"
+    (dragover)="inputDragEvent($event)"
+  /><button mat-raised-button (click)="searchProducts()">
+    <mat-icon fontIcon="search"></mat-icon> Search
+  </button>
+</div>
+<div class="loader-container">
+  <app-loader *ngIf="!isLoaded"></app-loader>
+</div>
+<div class="products">
+  <div *ngFor="let product of products" class="product-item">
+    <h3>
+      {{ product.title }}
+    </h3>
+    <img
+      [src]="product.thumbnail"
+      alt="product-image"
+      draggable="true"
+      (dragstart)="getDraggableProduct(product)"
+    />
+    <p>{{ product.price | currency }}</p>
+    <a
+      mat-raised-button
+      [title]="product.title + ' details'"
+      [routerLink]="['/products', product.id]"
+      >Details</a
+    >
+    <button mat-raised-button (click)="addToCart(product)">Buy</button>
+  </div>
+</div>
+<button
+  *ngIf="totalItems > 20"
+  [disabled]="!showNewItems"
+  class="btnAdditional"
+  [ngClass]="{ btnDisabled: !showNewItems, btnAdditional: showNewItems }"
+  (click)="getProducts()"
+>
+  Show more
+</button>
+<p *ngIf="!products.length && isLoaded">Products are not found.</p>

@@ -1,0 +1,27 @@
+<div *ngIf="product" class="product-info">
+  <h3>{{ product.title }}</h3>
+  <div class="carousel" *ngIf="images.length">
+    <button class="btnAdditional"
+      [disabled]="isFirst"
+      (click)="goPrev()"
+      *ngIf="images.length > 1"
+      [ngClass]="{btnDisabled: isFirst, btnAdditional: !isFirst}"
+    >
+      &lt;
+    </button>
+    <div class="img-container"><img [src]="images[index]" alt="image"/></div>
+    <button
+      [disabled]="isLast"
+      (click)="goNext()"
+      *ngIf="images.length > 1"
+      [ngClass]="{btnDisabled: isLast, btnAdditional: !isLast}"
+    >
+      &gt;
+    </button>
+  </div>
+  <h4>{{ product.price | currency }}</h4>
+  <p>Category: {{ product.category }}</p>
+  <p>Brand: {{ product.brand }}</p>
+  <p>Description: {{ product.description }}</p>
+  <button  mat-raised-button (click)="addToCart(product)">Buy</button>
+</div>

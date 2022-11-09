@@ -1,0 +1,65 @@
+<h2>Cart</h2>
+<div *ngFor="let item of items">
+  <div class="cart-item" *ngIf="item.count">
+    <div>
+      <img [src]="item.thumbnail" alt="item-img" />
+      <span>{{ item.title }}</span>
+    </div>
+    <div>
+      <span>{{ item.price | currency }}</span>
+      <div>
+        <button mat-raised-button (click)="subCount(item.count, item)">-</button
+        ><span>{{ item.count }}</span
+        ><button mat-raised-button (click)="addCount(item.count, item)">
+          +
+        </button>
+      </div>
+      <span>{{ item.price * item.count | currency }}</span>
+    </div>
+  </div>
+</div>
+<div class="total" *ngIf="items.length">
+  <span>Total:</span>
+  <span>
+    {{
+      (selectedShipping ? selectedShipping.price + totalPrice : totalPrice)
+        | currency
+    }}
+  </span>
+</div>
+<div class="cart-info" *ngIf="selectedShipping && items.length">
+  <div class="shipping-data">
+    <span>Shipping Type: {{ selectedShipping.type }}</span>
+    <span>
+      {{ selectedShipping.price | currency }}
+    </span>
+  </div>
+  <div class="client-data" *ngIf="clientData">
+    <div>Name: {{ clientData.name }}</div>
+    <div>Phone: {{ clientData.phone }}</div>
+    <div>Address: {{ clientData.address }}</div>
+  </div>
+</div>
+<div *ngIf="items.length" class="button-container">
+  <a routerLink="/shipping" class="button btnAdditional"
+    >{{ selectedShipping ? "Change" : "Select" }} shipping type</a
+  ><button
+    (click)="openDialog()"
+    *ngIf="selectedShipping"
+    class="btnAdditional"
+  >
+    {{ clientData ? "Change" : "Enter" }} client's data
+  </button>
+</div>
+<button
+  type="submit"
+  mat-raised-button
+  *ngIf="clientData && items.length"
+  class="purchase"
+  (click)="purchase()"
+>
+  Purchase
+</button>
+<p *ngIf="successMessage">
+  <b>Successfully purchased!</b><br /><i>{{ successMessage }}</i>
+</p>

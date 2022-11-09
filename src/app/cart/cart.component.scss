@@ -1,0 +1,110 @@
+.cart-item {
+  min-width: 250px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: calc(50% + 32px) calc(50% - 32px);
+  align-items: center;
+  padding: 16px 32px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  border: 2px solid #eeeeee;
+  img {
+    width: 10%;
+    border-radius: 4px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+}
+.cart-item div {
+  display: flex;
+  align-items: center;
+}
+.cart-item div div {
+  margin: auto;
+  display: flex;
+  column-gap: 7px;
+  align-items: center;
+  .mat-raised-button {
+    min-width: 30px;
+  }
+}
+.cart-item span:last-child {
+  justify-self: end;
+}
+.total, .cart-info, .button-container {
+  width: 50%;
+  min-width: 250px;
+  margin-left: 50%;
+  padding: 16px 32px;
+}
+.total {
+  margin-bottom: 8px;
+  border-radius: 8px;
+  border: 2px solid #eeeeee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cart-info {
+  border: 2px solid rgba(0, 139, 139, 0.2);
+  border-radius: 8px;
+}
+.shipping-data {
+  display: flex;
+  justify-content: space-between;
+}
+.client-data {
+  word-wrap: break-word;
+}
+.button-container{
+  margin: 8px 0px 8px 50%;
+  padding: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  row-gap: 10px;
+  column-gap: 10px;
+  .btnAdditional {
+    display: block;
+    flex: 1;
+    min-width: 250px;
+    text-align: center;
+  }
+}
+.purchase {
+  display: block;
+  width: 100%;
+}
+p {
+  width: 100%;
+  max-width: 450px;
+  margin: auto;
+  border: 2px solid #eeeeee;
+  border-radius: 8px;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 1rem;
+  word-wrap: break-word;
+}
+@media screen and (max-width: 768px) {
+  .cart-item {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    padding: 16px;
+  }
+  .total, .cart-info, .button-container {
+    width: 100%;
+    margin: 0 auto 8px;
+    padding: 16px;
+  }
+  .button-container{
+    padding: 0px;
+    margin: 0 auto 8px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .cart-item img {
+    width: 20%;
+  }
+}

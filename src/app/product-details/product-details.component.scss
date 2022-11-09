@@ -1,0 +1,36 @@
+.product-info {
+  display: grid;
+  justify-items: center;
+  row-gap: 10px;
+  margin-top: 10px;
+  h4, p {
+    margin: 0;
+  }
+  button {
+    width: 100%;
+    max-width: 250px;
+    display: flex;
+    justify-content: center;
+  }
+}
+.carousel {
+  width: 90%;
+  display: flex;
+  margin: auto;
+  align-items: center;
+  justify-content: space-between;
+  button {
+    width: 32px;
+    border-radius: 4px;
+  }
+  .img-container {
+    max-width: calc(100% - 84px);
+    margin: auto;
+  }
+  img {
+    width: 100%;
+    border-radius: 8px;
+    height: 200px;
+    object-fit: cover;
+  }
+}

@@ -1,0 +1,14 @@
+<div class="main">
+  <h3>Shipping Prices</h3>
+  <mat-radio-group [(ngModel)]="selectedShippingOption">
+    <div class="shipping-item" *ngFor="let shipping of shippingCosts | async">
+      <mat-radio-button class="example-radio-button" [value]="shipping">
+      </mat-radio-button
+      ><span>{{ shipping.type }}</span
+      ><span>{{ shipping.price | currency }}</span>
+    </div>
+    <a routerLink="/cart" button mat-raised-button (click)="onSubmit()"
+      >Submit</a
+    >
+  </mat-radio-group>
+</div>
