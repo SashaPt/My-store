@@ -5,7 +5,13 @@
   </div>
   <div>
     <label for="phone">Phone</label
-    ><input type="tel" id="phone" formControlName="phone" />
+    ><input
+      type="text"
+      id="phone"
+      formControlName="phone"
+      [inputMask]="phoneMask"
+      placeholder="+___(__)___-__-__"
+    />
   </div>
   <div>
     <label for="address">Address</label
@@ -14,7 +20,9 @@
   <button
     mat-raised-button
     [mat-dialog-close]="
-      checkoutForm.value.name && checkoutForm.value.address && checkoutForm.value.phone
+      checkoutForm.value.name &&
+      checkoutForm.value.address &&
+      checkoutForm.value.phone
         ? checkoutForm.value
         : null
     "

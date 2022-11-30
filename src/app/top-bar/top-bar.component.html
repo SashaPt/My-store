@@ -6,5 +6,5 @@
   (dragenter)="dragenter($event)"
   (dragleave)="dragleave($event)"
   (drop)="dragdrop($event)"
-  ><mat-icon fontIcon="shopping_cart"></mat-icon> Checkout</a
+  ><mat-icon fontIcon="shopping_cart" [matBadgeHidden]="calcProducts() === 0" [matBadge]="calcProducts()"></mat-icon> Checkout</a
 >

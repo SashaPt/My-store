@@ -8,6 +8,7 @@ import { CartService } from '../shared/service/cart.service';
   styleUrls: ['./top-bar.component.scss'],
 })
 export class TopBarComponent implements OnInit {
+  count = this.calcProducts();
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {}
@@ -34,5 +35,8 @@ export class TopBarComponent implements OnInit {
   addToCart(product: IProduct) {
     this.cartService.addToCart(product);
     window.alert('Your product has been added to the cart!');
+  }
+  calcProducts() {
+    return this.cartService.getTotalCount()
   }
 }

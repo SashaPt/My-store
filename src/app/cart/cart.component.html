@@ -6,15 +6,16 @@
       <span>{{ item.title }}</span>
     </div>
     <div>
-      <span>{{ item.price | currency }}</span>
+      <span class="price">{{ item.price | currency }}</span>
       <div>
-        <button mat-raised-button (click)="subCount(item.count, item)">-</button
+        <button mat-raised-button (click)="subCount(item.count, item)" [disabled]="item.count === 1">-</button
         ><span>{{ item.count }}</span
         ><button mat-raised-button (click)="addCount(item.count, item)">
           +
         </button>
       </div>
-      <span>{{ item.price * item.count | currency }}</span>
+      <mat-icon fontIcon="delete" (click)="deleteProduct(item)"></mat-icon>
+      <span class="price">{{ item.price * item.count | currency }}</span>
     </div>
   </div>
 </div>

@@ -49,6 +49,15 @@ export class CartService {
     }
     return sum;
   }
+  getTotalCount() {
+    let sum = 0;
+    for (let i of this.items) {
+      if (i.count) {
+        sum += i.count;
+      }
+    }
+    return sum;
+  }
 
   getShippingPrices() {
     return this.httpClient.get<IShipping[]>('assets/shipping.json');

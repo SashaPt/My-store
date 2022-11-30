@@ -1,8 +1,8 @@
 # My Store App
 
-E-Commerce App with different products. <a href="https://sashapt.github.io/My-store/">View Deployment</a>.
+App with different products. <a href="https://sashapt.github.io/My-store/">View Deployment</a>.
 
-## Description
+## 
 
 My Store App was created by using <a href='https://dummyjson.com'>DummyJSON</a>.
 

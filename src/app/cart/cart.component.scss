@@ -20,17 +20,28 @@
   display: flex;
   align-items: center;
 }
+.cart-item div:last-child {
+  display: grid;
+  grid-template-columns: 1fr auto auto 1fr;
+}
 .cart-item div div {
-  margin: auto;
-  display: flex;
   column-gap: 7px;
-  align-items: center;
+  justify-self: center;
   .mat-raised-button {
     min-width: 30px;
   }
 }
+mat-icon {
+  margin: 0 7px;
+  color: darkcyan;
+  cursor: pointer;
+}
+.price {
+  max-width: 75px;
+}
 .cart-item span:last-child {
   justify-self: end;
+  text-align: right;
 }
 .total, .cart-info, .button-container {
   width: 50%;
@@ -66,7 +77,6 @@
   row-gap: 10px;
   column-gap: 10px;
   .btnAdditional {
-    display: block;
     flex: 1;
     min-width: 250px;
     text-align: center;

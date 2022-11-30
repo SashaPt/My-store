@@ -29,21 +29,21 @@ export class CartComponent implements OnInit {
     });
   }
   subCount(count: number, item: IProduct) {
-    if (count >= 1) {
+    if (count > 1) {
       count--;
       this.cartService.setProductCount(item, count);
       this.totalPrice = this.cartService.getTotalPrice();
     }
-    if (count == 0) {
-      this.items = this.cartService.removeFromCart(item);
-      this.totalPrice = this.cartService.getTotalPrice();
-    }
-    if (!this.items.length) this.cartService.setSelectedShipping(null);
   }
   addCount(count: number, item: IProduct) {
     count++;
     this.cartService.setProductCount(item, count);
     this.totalPrice = this.cartService.getTotalPrice();
+  }
+  deleteProduct(item: IProduct) {
+    this.items = this.cartService.removeFromCart(item);
+    this.totalPrice = this.cartService.getTotalPrice();
+    if (!this.items.length) this.cartService.setSelectedShipping(null);
   }
   purchase() {
     if (this.selectedShipping) {

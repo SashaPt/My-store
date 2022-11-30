@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { createMask } from '@ngneat/input-mask';
 import { CartService } from '../shared/service/cart.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { CartService } from '../shared/service/cart.service';
 export class ClientFormComponent implements OnInit {
   items = this.cartService.getItems();
   checkoutForm = this.formBuilder.group({ name: '', phone: '', address: '' });
+  phoneMask = createMask('+[999](99)999-99-99');
   constructor(
     private cartService: CartService,
     private formBuilder: FormBuilder
@@ -17,7 +19,11 @@ export class ClientFormComponent implements OnInit {
 
   ngOnInit(): void {}
   onSubmit(): void {
-    if (this.checkoutForm.value.name && this.checkoutForm.value.address && this.checkoutForm.value.phone) {
+    if (
+      this.checkoutForm.value.name &&
+      this.checkoutForm.value.address &&
+      this.checkoutForm.value.phone
+    ) {
       this.checkoutForm.reset();
     }
   }
