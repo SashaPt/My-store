@@ -35,7 +35,7 @@
       {{ selectedShipping.price | currency }}
     </span>
   </div>
-  <div class="client-data" *ngIf="clientData">
+  <div class="client-data" *ngIf="getClientData() && clientData">
     <div>Name: {{ clientData.name }}</div>
     <div>Phone: {{ clientData.phone }}</div>
     <div>Address: {{ clientData.address }}</div>
@@ -51,11 +51,12 @@
   >
     {{ clientData ? "Change" : "Enter" }} client's data
   </button>
+  <app-client-form *ngIf="getIsOpenDialog()"></app-client-form>
 </div>
 <button
   type="submit"
   mat-raised-button
-  *ngIf="clientData && items.length"
+  *ngIf="getClientData() && clientData && items.length"
   class="purchase"
   (click)="purchase()"
 >

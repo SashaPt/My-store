@@ -23,5 +23,7 @@
   <p>Category: {{ product.category }}</p>
   <p>Brand: {{ product.brand }}</p>
   <p>Description: {{ product.description }}</p>
-  <button  mat-raised-button (click)="addToCart(product)">Buy</button>
+  <button mat-raised-button (click)="addToCart(product)" [disabled]="getAddedProducts(product)">
+    {{ getAddedProducts(product) ? "Added to the Cart" : "Buy" }}
+  </button>
 </div>

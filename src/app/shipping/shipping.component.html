@@ -7,7 +7,7 @@
       ><span>{{ shipping.type }}</span
       ><span>{{ shipping.price | currency }}</span>
     </div>
-    <a routerLink="/cart" button mat-raised-button (click)="onSubmit()"
+    <a button mat-raised-button (click)="onSubmit($event)"
       >Submit</a
     >
   </mat-radio-group>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IShipping } from '../shared/model/products.model';
 import { CartService } from '../shared/service/cart.service';
@@ -12,15 +13,17 @@ export class ShippingComponent implements OnInit {
   shippingCosts!: Observable<IShipping[]>;
   selectedShippingOption!: IShipping;
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
     this.shippingCosts = this.cartService.getShippingPrices();
   }
 
-  onSubmit(): void {
+  onSubmit(event: Event): void {
+    event.preventDefault()
     if (this.selectedShippingOption) {
       this.cartService.setSelectedShipping(this.selectedShippingOption);
+    this.router.navigate(['/cart']);
     }
   }
 }

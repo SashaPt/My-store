@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ClientFormComponent } from '../client-form/client-form.component';
 import { IProduct, IShipping } from '../shared/model/products.model';
 import { CartService } from '../shared/service/cart.service';
+import { DialogService } from '../shared/service/dialog.service';
 
 @Component({
   selector: 'app-cart',
@@ -16,17 +17,23 @@ export class CartComponent implements OnInit {
   totalPrice: number = this.cartService.getTotalPrice();
   successMessage: string = '';
 
-  constructor(private cartService: CartService, public dialog: MatDialog) {}
+  constructor(
+    private cartService: CartService,
+    private dialogService: DialogService,
+    public dialog: MatDialog
+  ) {}
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void {}
+  getIsOpenDialog() {
+    return this.dialogService.getOpenDialog();
   }
-
   openDialog() {
-    const dialogRef = this.dialog.open(ClientFormComponent);
-    dialogRef.afterClosed().subscribe((result) => {
-      this.clientData = result;
-    });
+    this.dialogService.setOpenDialog(true);
+  }
+  getClientData() {
+    const data = this.dialogService.getDialogValues();
+    this.clientData = data;
+    return data;
   }
   subCount(count: number, item: IProduct) {
     if (count > 1) {
@@ -43,10 +50,15 @@ export class CartComponent implements OnInit {
   deleteProduct(item: IProduct) {
     this.items = this.cartService.removeFromCart(item);
     this.totalPrice = this.cartService.getTotalPrice();
-    if (!this.items.length) this.cartService.setSelectedShipping(null);
+    if (!this.items.length) {
+      this.cartService.setSelectedShipping(null);
+      this.dialogService.resetValues();
+      this.getClientData();
+    } 
   }
   purchase() {
-    if (this.selectedShipping) {
+    if (this.selectedShipping && this.getClientData()) {
+      this.clientData = this.getClientData()
       console.warn(
         `Successfully purchased!\nDetails: total: $${
           this.totalPrice + this.selectedShipping.price
@@ -56,11 +68,13 @@ export class CartComponent implements OnInit {
       );
       this.successMessage = `Details: total: $${
         this.totalPrice + this.selectedShipping.price
-      }, shipping: ${this.selectedShipping.type}, ${this.clientData.address}, ${
-        this.clientData.name
-      }, ${this.clientData.phone}`;
+      }, shipping: ${this.selectedShipping.type}, ${
+        this.clientData.address
+      }, ${this.clientData.name}, ${this.clientData.phone}`;
     }
     this.items = this.cartService.clearCart();
     this.cartService.setSelectedShipping(null);
+    this.dialogService.resetValues();
+    this.getClientData();
   }
 }

@@ -22,3 +22,8 @@ export interface IShipping {
   type: string;
   price: number;
 }
+export interface IDialog {
+  name: string;
+  phone: string;
+  address: string;
+}

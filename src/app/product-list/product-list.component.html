@@ -1,13 +1,15 @@
 <div class="search-panel">
   <input
+    id="inputSearch"
     type="text"
     name="search"
+    placeholder="Product name"
     [(ngModel)]="searchValue"
+    (ngModelChange)="searchProducts()"
     (drop)="inputDragEvent($event)"
     (dragover)="inputDragEvent($event)"
-  /><button mat-raised-button (click)="searchProducts()">
-    <mat-icon fontIcon="search"></mat-icon> Search
-  </button>
+  />
+  <label for="inputSearch"><mat-icon fontIcon="search"></mat-icon></label>
 </div>
 <div class="loader-container">
   <app-loader *ngIf="!isLoaded"></app-loader>
@@ -20,7 +22,7 @@
     <img
       [src]="product.thumbnail"
       alt="product-image"
-      draggable="true"
+      [draggable]="!getAddedProducts(product)"
       (dragstart)="getDraggableProduct(product)"
     />
     <p>{{ product.price | currency }}</p>
@@ -30,7 +32,9 @@
       [routerLink]="['/products', product.id]"
       >Details</a
     >
-    <button mat-raised-button (click)="addToCart(product)">Buy</button>
+    <button mat-raised-button (click)="addToCart(product)" [disabled]="getAddedProducts(product)">
+      {{ getAddedProducts(product) ? "Added to the Cart" : "Buy" }}
+    </button>
   </div>
 </div>
 <button

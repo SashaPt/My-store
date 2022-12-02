@@ -25,7 +25,10 @@ export class CartService {
     }
   }
   removeFromCart(product: IProduct) {
-    this.items = this.items.filter((elem) => elem.title !== product.title);
+    const confirmation = confirm('Are you really want to remove this product from the cart?');
+    if (confirmation) {
+      this.items = this.items.filter((elem) => elem.title !== product.title);
+    }
     return this.items;
   }
   getItems() {

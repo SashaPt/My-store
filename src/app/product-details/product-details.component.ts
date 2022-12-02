@@ -35,6 +35,10 @@ export class ProductDetailsComponent implements OnInit {
     this.cartService.addToCart(product);
     window.alert('Your product has been added to the cart!');
   }
+   getAddedProducts(product: IProduct) {
+    const addedItems = this.cartService.getItems();
+    return addedItems.find((item) => item.id === product.id);
+  }
   goNext() {
     if (this.index == this.images.length - 2) {
       this.isLast = true;

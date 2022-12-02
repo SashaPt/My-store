@@ -1,33 +1,23 @@
-<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="name">Name</label
-    ><input type="text" id="name" formControlName="name" />
-  </div>
-  <div>
-    <label for="phone">Phone</label
-    ><input
-      type="text"
-      id="phone"
-      formControlName="phone"
-      [inputMask]="phoneMask"
-      placeholder="+___(__)___-__-__"
-    />
-  </div>
-  <div>
-    <label for="address">Address</label
-    ><input type="text" id="address" formControlName="address" />
-  </div>
-  <button
-    mat-raised-button
-    [mat-dialog-close]="
-      checkoutForm.value.name &&
-      checkoutForm.value.address &&
-      checkoutForm.value.phone
-        ? checkoutForm.value
-        : null
-    "
-    type="submit"
-  >
-    Submit
-  </button>
-</form>
+<div class="wrapper" (click)="closeDialog()">
+  <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" (click)="$event.stopPropagation()">
+    <div>
+      <label for="name">Name</label
+      ><input type="text" id="name" formControlName="name" />
+    </div>
+    <div>
+      <label for="phone">Phone</label
+      ><input
+        type="text"
+        id="phone"
+        formControlName="phone"
+        [inputMask]="phoneMask"
+        placeholder="+___(__)___-__-__"
+      />
+    </div>
+    <div>
+      <label for="address">Address</label
+      ><input type="text" id="address" formControlName="address" />
+    </div>
+    <button mat-raised-button type="submit">Submit</button>
+  </form>
+</div>

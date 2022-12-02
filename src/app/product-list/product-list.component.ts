@@ -49,14 +49,15 @@ export class ProductListComponent implements OnInit {
         });
     }
   }
-  share() {
-    window.alert('The product has been shared!');
-  }
   searchProducts() {
-    this.limit = 20;
-    this.totalItems = 0;
-    this.lastPageItems = null;
-    this.getProducts();
+    if (this.searchValue.length >= 2 || !this.searchValue.length) {
+      this.limit = 20;
+      this.totalItems = 0;
+      this.lastPageItems = null;
+      setTimeout(() => {
+        this.getProducts();
+      }, 500);
+    }
   }
   addToCart(product: IProduct) {
     this.cartService.addToCart(product);
@@ -67,5 +68,9 @@ export class ProductListComponent implements OnInit {
   }
   inputDragEvent(event: Event) {
     event.preventDefault();
+  }
+  getAddedProducts(product: IProduct) {
+    const addedItems = this.cartService.getItems();
+    return addedItems.find((item) => item.id === product.id);
   }
 }
