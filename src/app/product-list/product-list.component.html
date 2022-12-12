@@ -4,8 +4,7 @@
     type="text"
     name="search"
     placeholder="Product name"
-    [(ngModel)]="searchValue"
-    (ngModelChange)="searchProducts()"
+    (input)="onSearch($event)"
     (drop)="inputDragEvent($event)"
     (dragover)="inputDragEvent($event)"
   />

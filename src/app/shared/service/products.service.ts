@@ -11,7 +11,7 @@ const API_URL = 'https://dummyjson.com';
 export class ProductsService {
   constructor(private httpClient: HttpClient) {}
 
-  getProducts(value: string, limit: number): Observable<IResponse> {
+  getProducts(value: string | undefined, limit: number): Observable<IResponse> {
     return this.httpClient.get<IResponse>(`${API_URL}/products/search?q=${value}&limit=${limit}`);
   }
   getProductById(id: number): Observable<IProduct> {

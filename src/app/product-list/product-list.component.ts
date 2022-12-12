@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  Subject,
+  Subscription,
+  switchMap,
+} from 'rxjs';
 import { IProduct } from '../shared/model/products.model';
 import { CartService } from '../shared/service/cart.service';
 import { ProductsService } from '../shared/service/products.service';
@@ -17,6 +24,8 @@ export class ProductListComponent implements OnInit {
   showNewItems: boolean = false;
   isLoaded: boolean = false;
   searchValue: string = '';
+  searchSubject = new Subject<string | undefined>();
+  searchSubscription?: Subscription;
   constructor(
     private productsService: ProductsService,
     private cartService: CartService
@@ -24,7 +33,26 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProducts();
+    this.searchSubscription = this.searchSubject
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap(
+          (searchQuery) => (this.searchValue = searchQuery ? searchQuery : '')
+        )
+      )
+      .subscribe(() => {
+        this.limit = 20;
+        this.totalItems = 0;
+        this.lastPageItems = null;
+        this.getProducts();
+      });
   }
+
+  ngOnDestroy() {
+    this.searchSubscription?.unsubscribe();
+  }
+
   getProducts() {
     this.isLoaded = false;
     if (!this.totalItems || this.limit <= this.totalItems) {
@@ -49,15 +77,9 @@ export class ProductListComponent implements OnInit {
         });
     }
   }
-  searchProducts() {
-    if (this.searchValue.length >= 2 || !this.searchValue.length) {
-      this.limit = 20;
-      this.totalItems = 0;
-      this.lastPageItems = null;
-      setTimeout(() => {
-        this.getProducts();
-      }, 500);
-    }
+  onSearch(event: Event): void {
+    const searchQuery = (event.target as HTMLInputElement).value;
+    this.searchSubject.next(searchQuery?.trim());
   }
   addToCart(product: IProduct) {
     this.cartService.addToCart(product);
